@@ -1,0 +1,6 @@
+{
+  "rewrites": [
+    { "source": "/api/cinetpay/notify", "destination": "/api/notify.html" },
+    { "source": "/paiement/success", "destination": "/success.html" }
+  ]
+}
