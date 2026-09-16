@@ -58,11 +58,22 @@
 
 <script>
 let plan='mensuel';
-const WHATSAPP_NUMBER='225503444508';
+const WHATSAPP_NUMBER='2250503444508';
 
 function setPlan(p){plan=p;
 document.getElementById('btn-m').className=p==='mensuel'?'px-8 py-2.5 rounded-full bg-white text-black font-bold':'px-8 py-2.5 rounded-full text-gray-400';
 document.getElementById('btn-a').className=p==='annuel'?'px-8 py-2.5 rounded-full bg-white text-black font-bold':'px-8 py-2.5 rounded-full text-gray-400';
 document.getElementById('p-ess').innerText=p==='mensuel'?'300 FCFA':'4.000 FCFA/an';
 document.getElementById('p-pro').innerText=p==='mensuel'?'700 FCFA':'8.000 FCFA/an';
-document.getElementById('p-prem').innerText=p==='mensuel'?'1.000 FCFA':'11.000 FCFA/an';
+document.getElementById('p-prem').innerText=p==='mensuel'?'1.000 FCFA':'11.000 FCFA/an';}
+
+function subscribe(nom,prix){
+const pays=document.getElementById('country').value;
+const prixFinal=plan==='mensuel'?prix:prix*10;
+const msg=`Bonjour ArtisanPro CI 👋%0AJe veux m'abonner:%0A%0A✅ Plan: ${nom}%0A💰 Prix: ${prixFinal} FCFA (${plan})%0A🌍 Pays: ${pays}%0A%0AEnvoyez-moi le lien de paiement Wave svp 🙏`;
+window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${msg}`,'_blank');
+}
+function diffuserAnnonce(){const t=document.getElementById('annonce-titre').value||'ArtisanPro';const m=document.getElementById('annonce-message').value;if(!m){alert('Ecris message!');return}localStorage.setItem('artisanpro_annonce_globale',JSON.stringify({titre:t,message:m}));alert('✅ Diffusé!');location.reload();}
+try{const a=JSON.parse(localStorage.getItem('artisanpro_annonce_globale')||'null');if(a&&a.message){document.getElementById('banner-annonce').innerHTML=`<div style="background:#FF6B00;color:white;padding:12px;text-align:center;position:sticky;top:0;z-index:9999"><b>${a.titre}:</b> ${a.message} <span onclick="this.parentElement.remove()" style="float:right;font-weight:bold;cursor:pointer">✕</span></div>`}}catch(e){}
+</script>
+</body></html>
