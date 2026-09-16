@@ -6,108 +6,59 @@
 <title>Artisan Pro Afrique</title>
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-[#0a0a0a] text-white min-h-screen p-4">
-<div class="max-w-6xl mx-auto">
-<h1 class="text-3xl font-bold text-center">ABONNEMENTS ARTISANPRO</h1>
+<body class="bg-[#0a0a0a] text-white min-h-screen">
+<div id="banner-annonce"></div><div class="max-w-6xl mx-auto p-4">
+<h1 class="text-3xl font-bold text-center mt-4">ArtisanPro Afrique CI</h1>
 
-<div class="flex flex-col items-center mt-6 gap-2">
-<select id="country" onchange="updatePayments()" class="bg-[#1a1a1a] border border-white/20 rounded-full px-6 py-3 font-bold outline-none">
+<select id="country" onchange="updatePayment()" class="bg-[#1a1a1a] border border-[#333] rounded-lg p-3 w-full max-w-md mx-auto flex mt-6">
 <option value="CI">🇨🇮 Côte d'Ivoire (Wave)</option>
 <option value="SN">🇸🇳 Sénégal (Wave)</option>
 <option value="ML">🇲🇱 Mali (Wave)</option>
 <option value="BF">🇧🇫 Burkina Faso (Wave)</option>
-<option value="BJ">🇧🇯 Bénin (Moov / MTN / Celtiis)</option>
+<option value="BJ">🇧🇯 Bénin (Moov / MTN)</option>
 <option value="TG">🇹🇬 Togo (Moov / TMoney)</option>
 <option value="CM">🇨🇲 Cameroun (MTN / Orange)</option>
 <option value="OTHER">🌍 Autre</option>
 </select>
-<p id="pay-info" class="text-xs mt-2"></p>
-</div>
+<p id="pay-info" class="text-xs mt-2 text-gray-400 text-center"></p>
 
 <div class="flex justify-center mt-6">
-<div class="bg-[#1a1a1a] rounded-full p-1 flex gap-1">
-<button onclick="setPlan('mensuel')" id="btn-mensuel" class="px-6 py-2 rounded-full bg-orange-500 font-bold">MENSUEL</button>
-<button onclick="setPlan('annuel')" id="btn-annuel" class="px-6 py-2 rounded-full bg-transparent font-bold">ANNUEL -20%</button>
+<div class="bg-[#1a1a1a] rounded-full p-1 flex">
+<button onclick="setPlan('mensuel')" id="btn-mensuel" class="px-6 py-2 rounded-full bg-white text-black font-bold">Mensuel</button>
+<button onclick="setPlan('annuel')" id="btn-annuel" class="px-6 py-2 rounded-full text-gray-400">Annuel</button>
 </div></div>
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-<div class="bg-[#1e1e1e] rounded-2xl p-6 border border-white/10">
-<h3 class="font-bold">ESSENTIEL</h3>
-<div class="mt-4"><span class="text-4xl font-bold" id="price-essentiel">300</span> FCFA <span id="period-essentiel" class="text-sm text-gray-400">/mois</span></div>
-<a id="link-essentiel" href="#" target="_blank" class="mt-6 block text-center py-3 rounded-full font-bold"></a>
-<p id="alt-essentiel" class="text-[11px] text-gray-500 mt-2 text-center"></p>
-</div>
-<div class="bg-[#1e1e1e] rounded-2xl p-6 border-2 border-orange-500 relative">
-<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-orange-500 text-xs font-bold px-4 py-1 rounded-full">RECOMMANDÉ</div>
-<h3 class="font-bold">PRO</h3>
-<div class="mt-4"><span class="text-4xl font-bold" id="price-pro">700</span> FCFA <span id="period-pro" class="text-sm text-gray-400">/mois</span></div>
-<a id="link-pro" href="#" target="_blank" class="mt-6 block text-center py-3 rounded-full font-bold bg-orange-500"></a>
-<p id="alt-pro" class="text-[11px] text-gray-500 mt-2 text-center"></p>
-</div>
-<div class="bg-[#1e1e1e] rounded-2xl p-6 border border-white/10">
-<h3 class="font-bold">PREMIUM</h3>
-<div class="mt-4"><span class="text-4xl font-bold" id="price-premium">1000</span> FCFA <span id="period-premium" class="text-sm text-gray-400">/mois</span></div>
-<a id="link-premium" href="#" target="_blank" class="mt-6 block text-center py-3 rounded-full font-bold"></a>
-<p id="alt-premium" class="text-[11px] text-gray-500 mt-2 text-center"></p>
-</div>
-</div>
-
-<div class="bg-[#1a1a1a] rounded-xl p-4 mt-8 text-center border border-white/10">
-<p class="text-xs text-gray-400">Après paiement, envoie la capture + ton nom sur WhatsApp</p>
-<a href="https://wa.me/2250503444508?text=Salut%2C%20j%27ai%20pay%C3%A9%20mon%20abonnement%20ArtisanPro" target="_blank" class="mt-2 inline-block bg-green-500 text-white px-6 py-2 rounded-full font-bold text-sm">📱 WhatsApp: 05 03 44 45 08</a>
+<div class="max-w-2xl mx-auto mt-12 bg-[#1a1a1a] rounded-2xl p-6 border border-[#333]">
+<h2 class="font-bold text-orange-400">🔧 Panel Admin</h2>
+<input id="annonce-titre" placeholder="Titre" class="w-full mt-3 bg-[#0a0a0a] border border-[#333] p-3 rounded-lg">
+<textarea id="annonce-message" placeholder="Message pour TOUS..." class="w-full mt-3 bg-[#0a0a0a] border border-[#333] p-3 rounded-lg h-24"></textarea>
+<button onclick="diffuserAnnonce()" class="w-full mt-3 bg-[#FF6B00] py-3 rounded-lg font-bold">📢 Envoyer à tous</button>
 </div>
 </div>
 
 <script>
-const waveLinks={
- mensuel:{essentiel:"https://pay.wave.com/m/M_ci_eGr2SsGnyCna/c/ci/?amount=300",pro:"https://pay.wave.com/m/M_ci_eGr2SsGnyCna/c/ci/?amount=700",premium:"https://pay.wave.com/m/M_ci_eGr2SsGnyCna/c/ci/?amount=1000"},
- annuel:{essentiel:"https://pay.wave.com/m/M_ci_eGr2SsGnyCna/c/ci/?amount=4000",pro:"https://pay.wave.com/m/M_ci_eGr2SsGnyCna/c/ci/?amount=8000",premium:"https://pay.wave.com/m/M_ci_eGr2SsGnyCna/c/ci/?amount=11000"}
-};
-const waveCountries=["CI","SN","ML","BF"];
-let currentPlan="mensuel";
-
-function setPlan(p){currentPlan=p;
-document.getElementById('btn-mensuel').className=p==='mensuel'?'px-6 py-2 rounded-full bg-orange-500 font-bold':'px-6 py-2 rounded-full bg-transparent font-bold';
-document.getElementById('btn-annuel').className=p==='annuel'?'px-6 py-2 rounded-full bg-orange-500 font-bold':'px-6 py-2 rounded-full bg-transparent font-bold';
-updatePayments();}
-
-function updatePayments(){
- const country=document.getElementById('country').value;
- const isWave=waveCountries.includes(country);
- const info=document.getElementById('pay-info');
- const prices=currentPlan==='mensuel'?{essentiel:300,pro:700,premium:1000,period:'/mois'}:{essentiel:'4 000',pro:'8 000',premium:'11 000',period:'/an'};
-
- document.getElementById('price-essentiel').innerText=prices.essentiel;
- document.getElementById('price-pro').innerText=prices.pro;
- document.getElementById('price-premium').innerText=prices.premium;
- document.getElementById('period-essentiel').innerText=prices.period;
- document.getElementById('period-pro').innerText=prices.period;
- document.getElementById('period-premium').innerText=prices.period;
-
- if(isWave){
-   info.innerHTML="✅ <b>Wave disponible</b> - 1% frais - 05 03 44 45 08";
-   info.className="text-xs text-green-400 mt-2";
-   document.getElementById('link-essentiel').href=waveLinks[currentPlan].essentiel;
-   document.getElementById('link-pro').href=waveLinks[currentPlan].pro;
-   document.getElementById('link-premium').href=waveLinks[currentPlan].premium;
-   document.getElementById('link-essentiel').innerText="PAYER AVEC WAVE";document.getElementById('link-essentiel').className="mt-6 block text-center py-3 rounded-full font-bold bg-[#2a2a2a]";
-   document.getElementById('link-pro').innerText="PAYER AVEC WAVE";document.getElementById('link-pro').className="mt-6 block text-center py-3 rounded-full font-bold bg-orange-500";
-   document.getElementById('link-premium').innerText="PAYER AVEC WAVE";document.getElementById('link-premium').className="mt-6 block text-center py-3 rounded-full font-bold bg-[#2a2a2a]";
-   document.getElementById('alt-essentiel').innerText="Wave CI, Sénégal, Mali, Burkina";document.getElementById('alt-pro').innerText="Wave CI, Sénégal, Mali, Burkina";document.getElementById('alt-premium').innerText="Wave CI, Sénégal, Mali, Burkina";
- } else {
-   info.innerHTML="🌍 <b>Hors Wave</b> - Paiement Moov Bénin / MTN / Orange via WhatsApp 05 03 44 45 08";
-   info.className="text-xs text-orange-400 mt-2 text-center";
-   const amtE=currentPlan==='mensuel'?300:4000;const amtP=currentPlan==='mensuel'?700:8000;const amtPr=currentPlan==='mensuel'?1000:11000;
-   document.getElementById('link-essentiel').href=`https://wa.me/2250503444508?text=Salut%20je%20suis%20au%20${country}%20je%20veux%20payer%20ESSENTIEL%20${amtE}F%20(${currentPlan})`;
-   document.getElementById('link-pro').href=`https://wa.me/2250503444508?text=Salut%20je%20suis%20au%20${country}%20je%20veux%20payer%20PRO%20${amtP}F%20(${currentPlan})`;
-   document.getElementById('link-premium').href=`https://wa.me/2250503444508?text=Salut%20je%20suis%20au%20${country}%20je%20veux%20payer%20PREMIUM%20${amtPr}F%20(${currentPlan})`;
-   document.getElementById('link-essentiel').innerText=`PAYER ${amtE}F VIA WHATSAPP`;document.getElementById('link-essentiel').className="mt-6 block text-center py-3 rounded-full font-bold bg-green-600";
-   document.getElementById('link-pro').innerText=`PAYER ${amtP}F VIA WHATSAPP`;document.getElementById('link-pro').className="mt-6 block text-center py-3 rounded-full font-bold bg-green-600";
-   document.getElementById('link-premium').innerText=`PAYER ${amtPr}F VIA WHATSAPP`;document.getElementById('link-premium').className="mt-6 block text-center py-3 rounded-full font-bold bg-green-600";
-   document.getElementById('alt-essentiel').innerText="Tu seras redirigé sur WhatsApp 05 03 44 45 08 - On t'envoie le numéro Moov Bénin";document.getElementById('alt-pro').innerText="Tu seras redirigé sur WhatsApp 05 03 44 45 08";document.getElementById('alt-premium').innerText="Tu seras redirigé sur WhatsApp 05 03 44 45 08";
- }
+function diffuserAnnonce(){
+ const t=document.getElementById('annonce-titre').value||'ArtisanPro';
+ const m=document.getElementById('annonce-message').value;
+ if(!m){alert('Ecris un message!');return}
+ localStorage.setItem('artisanpro_annonce_globale',JSON.stringify({titre:t,message:m,date:new Date().toLocaleString()}));
+ alert('✅ Notification diffusée !'); location.reload();
 }
-updatePayments();
+function setPlan(p){
+ document.getElementById('btn-mensuel').className=p==='mensuel'?'px-6 py-2 rounded-full bg-white text-black font-bold':'px-6 py-2 rounded-full text-gray-400';
+ document.getElementById('btn-annuel').className=p==='annuel'?'px-6 py-2 rounded-full bg-white text-black font-bold':'px-6 py-2 rounded-full text-gray-400';
+ document.getElementById('pay-info').innerText='Plan '+p;
+}
+function updatePayment(){
+ const c=document.getElementById('country').value;
+ document.getElementById('pay-info').innerText='Pays: '+c+' - Paiement Wave/MTN';
+}
+try{
+ const a=JSON.parse(localStorage.getItem('artisanpro_annonce_globale')||'null');
+ if(a&&a.message){
+  document.getElementById('banner-annonce').innerHTML=`<div style="background:#FF6B00;color:white;padding:12px;text-align:center;position:sticky;top:0;z-index:9999"><b>${a.titre}:</b> ${a.message} <span onclick="this.parentElement.remove()" style="float:right;cursor:pointer">✕</span></div>`;
+ }
+}catch(e){}
+updatePayment();
 </script>
-</body>
-</html>
+</body></html>
