@@ -3,66 +3,66 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Artisan Pro Afrique</title>
+<title>Artisan Pro Afrique CI</title>
 <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-[#0a0a0a] text-white min-h-screen">
 <div id="banner-annonce"></div>
-<div class="max-w-6xl mx-auto p-4 pb-20">
-<h1 class="text-3xl font-bold text-center mt-6">ArtisanPro Afrique CI</h1>
+<div class="max-w-md mx-auto p-4 pb-20">
+<h1 class="text-2xl font-bold text-center mt-6">ArtisanPro Afrique CI</h1>
 
-<select id="country" onchange="updatePayment()" class="bg-[#1a1a1a] border border-[#333] rounded-xl p-4 w-full max-w-md mx-auto flex mt-6">
+<select id="country" class="bg-[#1a1a1a] border border-[#333] rounded-xl p-4 w-full mt-6">
 <option value="CI">🇨🇮 Côte d'Ivoire (Wave)</option>
 <option value="SN">🇸🇳 Sénégal (Wave)</option>
 <option value="ML">🇲🇱 Mali (Wave)</option>
 <option value="BF">🇧🇫 Burkina Faso (Wave)</option>
-<option value="BJ">🇧🇯 Bénin (Moov / MTN)</option>
-<option value="TG">🇹🇬 Togo (Moov / TMoney)</option>
-<option value="CM">🇨🇲 Cameroun (MTN / Orange)</option>
-<option value="OTHER">🌍 Autre</option>
+<option value="BJ">🇧🇯 Bénin</option>
+<option value="TG">🇹🇬 Togo</option>
+<option value="CM">🇨🇲 Cameroun</option>
 </select>
-<p id="pay-info" class="text-xs mt-3 text-gray-400 text-center"></p>
-<p id="plan-info" class="text-sm mt-1 text-center">Plan annuel</p>
 
 <div class="flex justify-center mt-6">
 <div class="bg-[#1a1a1a] rounded-full p-1 flex">
-<button onclick="setPlan('mensuel')" id="btn-mensuel" class="px-6 py-2.5 rounded-full text-gray-400">Mensuel</button>
-<button onclick="setPlan('annuel')" id="btn-annuel" class="px-6 py-2.5 rounded-full bg-white text-black font-bold">Annuel</button>
+<button onclick="setPlan('mensuel')" id="btn-m" class="px-8 py-2.5 rounded-full bg-white text-black font-bold">Mensuel</button>
+<button onclick="setPlan('annuel')" id="btn-a" class="px-8 py-2.5 rounded-full text-gray-400">Annuel</button>
 </div></div>
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8 max-w-4xl mx-auto">
-<div class="bg-[#1a1a1a] rounded-2xl p-6 border border-[#333]">
-<h3 class="font-bold">Gratuit</h3><p class="text-3xl font-bold mt-2">0 FCFA</p>
-<button onclick="subscribe('gratuit')" class="w-full mt-6 bg-[#333] py-3 rounded-xl">Choisir</button>
+<div class="space-y-4 mt-8">
+<div class="bg-[#1a1a1a] rounded-2xl p-5 border border-[#333]">
+<h3 class="font-bold">Essentiel</h3>
+<p id="p-ess" class="text-3xl font-bold mt-3">300 FCFA</p>
+<p class="text-xs text-gray-400">par mois</p>
+<button onclick="subscribe('Essentiel',300)" class="w-full mt-4 bg-[#333] py-3 rounded-xl font-bold">Choisir Essentiel - 300F</button>
 </div>
-<div class="bg-[#FF6B00] rounded-2xl p-6 border-2 border-white">
-<h3 class="font-bold">Pro ⭐</h3><p id="price-pro" class="text-3xl font-bold mt-2">48.000 FCFA/an</p>
-<button onclick="subscribe('pro')" class="w-full mt-6 bg-white text-black py-3 rounded-xl font-bold">S'abonner Pro</button>
+
+<div class="bg-[#FF6B00] rounded-2xl p-5 border-2 border-white">
+<h3 class="font-bold">Pro ⭐</h3>
+<p id="p-pro" class="text-3xl font-bold mt-3">700 FCFA</p>
+<p class="text-xs">par mois - Populaire</p>
+<button onclick="subscribe('Pro',700)" class="w-full mt-4 bg-white text-black py-3 rounded-xl font-bold">S'abonner Pro - 700F</button>
 </div>
-<div class="bg-[#1a1a1a] rounded-2xl p-6 border border-[#333]">
-<h3 class="font-bold">Entreprise</h3><p id="price-entreprise" class="text-3xl font-bold mt-2">144.000 FCFA/an</p>
-<button onclick="subscribe('entreprise')" class="w-full mt-6 bg-[#333] py-3 rounded-xl">Choisir Entreprise</button>
+
+<div class="bg-[#1a1a1a] rounded-2xl p-5 border border-[#333]">
+<h3 class="font-bold">Premium 👑</h3>
+<p id="p-prem" class="text-3xl font-bold mt-3">1000 FCFA</p>
+<p class="text-xs text-gray-400">par mois - VIP</p>
+<button onclick="subscribe('Premium',1000)" class="w-full mt-4 bg-[#333] py-3 rounded-xl font-bold">Choisir Premium - 1000F</button>
 </div></div>
 
-<div class="max-w-2xl mx-auto mt-12 bg-[#1a1a1a] rounded-2xl p-6 border border-[#333]">
-<h2 class="font-bold text-orange-400">🔧 Panel Admin</h2>
-<input id="annonce-titre" placeholder="Titre" class="w-full mt-3 bg-[#0a0a0a] border p-3 rounded-xl">
-<textarea id="annonce-message" placeholder="Message pour TOUS..." class="w-full mt-3 bg-[#0a0a0a] border p-3 rounded-xl h-28"></textarea>
-<button onclick="diffuserAnnonce()" class="w-full mt-3 bg-[#FF6B00] py-3 rounded-xl font-bold">📢 Envoyer à tous</button>
+<div class="mt-10 bg-[#1a1a1a] rounded-2xl p-5 border border-[#333]">
+<h2 class="font-bold text-orange-400 text-sm">🔧 Panel Admin</h2>
+<input id="annonce-titre" placeholder="Titre" class="w-full mt-3 bg-[#0a0a0a] border border-[#333] p-3 rounded-xl text-sm">
+<textarea id="annonce-message" placeholder="Message pour TOUS..." class="w-full mt-3 bg-[#0a0a0a] border border-[#333] p-3 rounded-xl text-sm h-20"></textarea>
+<button onclick="diffuserAnnonce()" class="w-full mt-3 bg-[#FF6B00] py-3 rounded-xl font-bold text-sm">📢 Envoyer à tous</button>
 </div></div>
 
 <script>
-let currentPlan='annuel';
-function setPlan(plan){currentPlan=plan;
-document.getElementById('btn-mensuel').className=plan==='mensuel'?'px-6 py-2.5 rounded-full bg-white text-black font-bold':'px-6 py-2.5 rounded-full text-gray-400';
-document.getElementById('btn-annuel').className=plan==='annuel'?'px-6 py-2.5 rounded-full bg-white text-black font-bold':'px-6 py-2.5 rounded-full text-gray-400';
-document.getElementById('plan-info').innerText=plan==='mensuel'?'Plan mensuel':'Plan annuel';
-document.getElementById('price-pro').innerText=plan==='mensuel'?'5.000 FCFA/mois':'48.000 FCFA/an';
-document.getElementById('price-entreprise').innerText=plan==='mensuel'?'15.000 FCFA/mois':'144.000 FCFA/an';}
-function updatePayment(){const m={'CI':'Wave CI','SN':'Wave Sénégal','ML':'Wave Mali','BF':'Wave BF','BJ':'MTN Bénin','TG':'TMoney Togo','CM':'MTN Cameroun','OTHER':'Carte'};document.getElementById('pay-info').innerText='Paiement via '+m[document.getElementById('country').value];}
-function subscribe(plan){localStorage.setItem('artisanpro_abonnement',JSON.stringify({plan,periode:currentPlan,pays:document.getElementById('country').value}));alert('✅ Abonnement '+plan+' activé!');}
-function diffuserAnnonce(){const t=document.getElementById('annonce-titre').value||'ArtisanPro';const m=document.getElementById('annonce-message').value;if(!m){alert('Ecris message!');return}localStorage.setItem('artisanpro_annonce_globale',JSON.stringify({titre:t,message:m}));alert('✅ Diffusé!');location.reload();}
-try{const a=JSON.parse(localStorage.getItem('artisanpro_annonce_globale')||'null');if(a&&a.message){document.getElementById('banner-annonce').innerHTML=`<div style="background:#FF6B00;color:white;padding:12px;text-align:center;position:sticky;top:0;z-index:9999"><b>${a.titre}:</b> ${a.message} <span onclick="this.parentElement.remove()" style="float:right">✕</span></div>`}}catch(e){}
-updatePayment();
-</script>
-</body></html>
+let plan='mensuel';
+const WHATSAPP_NUMBER='225503444508';
+
+function setPlan(p){plan=p;
+document.getElementById('btn-m').className=p==='mensuel'?'px-8 py-2.5 rounded-full bg-white text-black font-bold':'px-8 py-2.5 rounded-full text-gray-400';
+document.getElementById('btn-a').className=p==='annuel'?'px-8 py-2.5 rounded-full bg-white text-black font-bold':'px-8 py-2.5 rounded-full text-gray-400';
+document.getElementById('p-ess').innerText=p==='mensuel'?'300 FCFA':'4.000 FCFA/an';
+document.getElementById('p-pro').innerText=p==='mensuel'?'700 FCFA':'8.000 FCFA/an';
+document.getElementById('p-prem').innerText=p==='mensuel'?'1.000 FCFA':'11.000 FCFA/an';
