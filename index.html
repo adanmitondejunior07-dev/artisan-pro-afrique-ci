@@ -1,6 +1,54 @@
-<script src="https://cdn.kkiapay.me/k.js"></script><button onClick={() => payerAvecKkiapay('essentiel_mensuel')}>Essentiel 425F/mois</button>
-<button onClick={() => payerAvecKkiapay('essentiel_annuel')}>Essentiel 4700F/an</button>
-<button onClick={() => payerAvecKkiapay('pro_mensuel')}>Pro 900F/mois</button>
-<button onClick={() => payerAvecKkiapay('pro_annuel')}>Pro 9200F/an</button>
-<button onClick={() => payerAvecKkiapay('premium_mensuel')}>Premium 1200F/mois</button>
-<button onClick={() => payerAvecKkiapay('premium_annuel')}>Premium 14325F/an</button>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width">
+<title>ArtisanPro Afrique CI</title>
+<script src="https://cdn.kkiapay.me/k.js"></script>
+<style>
+body{font-family:sans-serif;padding:20px;background:#f5f5f5;text-align:center}
+button{display:block;width:100%;padding:15px;margin:10px 0;border:none;border-radius:10px;background:#007BFF;color:white;font-weight:bold;font-size:16px}
+h1{color:#333}
+</style>
+</head>
+<body>
+<h1>ArtisanPro Afrique CI</h1>
+<p>Choisis ton abonnement - Paiement Wave / MTN / Moov</p>
+
+<button onclick="payer('essentiel_mensuel')">Essentiel Mensuel - 425F / mois</button>
+<button onclick="payer('essentiel_annuel')">Essentiel Annuel - 4700F / an</button>
+<button onclick="payer('pro_mensuel')">Pro Mensuel - 900F / mois</button>
+<button onclick="payer('pro_annuel')">Pro Annuel - 9200F / an</button>
+<button onclick="payer('premium_mensuel')">Premium Mensuel - 1200F / mois</button>
+<button onclick="payer('premium_annuel')">Premium Annuel - 14325F / an</button>
+
+<p style="margin-top:30px;font-size:12px;color:gray">Après paiement, tu seras débloqué automatiquement</p>
+
+<script>
+const PRIX = {
+  essentiel_mensuel:425,
+  essentiel_annuel:4700,
+  pro_mensuel:900,
+  pro_annuel:9200,
+  premium_mensuel:1200,
+  premium_annuel:14325
+};
+
+function payer(plan){
+  const montant = PRIX[plan];
+  openKkiapayWidget({
+    amount: montant,
+    key: '7edf7c80b3ee11f1b408a9e54ae3d6e2',
+    sandbox: true,
+    data: plan,
+    theme: '#007BFF',
+    success: function(res){
+      localStorage.setItem('artisan_premium', plan);
+      alert('SUCCES! Paiement '+montant+'F - '+plan+' débloqué');
+      location.reload();
+    }
+  });
+}
+</script>
+</body>
+</html>
