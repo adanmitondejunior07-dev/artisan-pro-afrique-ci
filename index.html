@@ -1,43 +1,12 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ArtisanPro Afrique CI</title>
-<script src="https://cdn.kkiapay.me/k.js"></script>
-<style>
-body{font-family:Arial;background:#f2f2f2;padding:20px;text-align:center}
-.card{background:white;padding:20px;border-radius:15px;margin-top:20px}
-button{width:100%;padding:15px;margin:8px 0;border:none;border-radius:10px;font-weight:bold;color:white;background:#0d6efd}
-.green{background:#198754}
-</style>
-</head>
-<body>
-<h2>ArtisanPro Afrique CI</h2>
-<div class="card">
-<button onclick="pay('essentiel_mensuel',425)">Essentiel Mensuel 425F</button>
-<button onclick="pay('essentiel_annuel',4700)">Essentiel Annuel 4700F</button>
-<button onclick="pay('pro_mensuel',900)">Pro Mensuel 900F</button>
-<button onclick="pay('pro_annuel',9200)">Pro Annuel 9200F</button>
-<button onclick="pay('premium_mensuel',1200)">Premium Mensuel 1200F</button>
-<button onclick="pay('premium_annuel',14325)">Premium Annuel 14325F</button>
-
-<button class="green" onclick="unlock()">BOUTON SECOURS - Débloquer tout</button>
-<p id="statut"></p>
-</div>
-
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ArtisanPro</title>
+<style>body{font-family:Arial;background:#f2f2f2;padding:20px;text-align:center}.card{background:white;padding:20px;border-radius:15px}button{width:100%;padding:15px;margin:8px 0;border:none;border-radius:10px;font-weight:bold;color:white;background:#0d6efd}.green{background:#198754}</style></head>
+<body><h2>ArtisanPro CI - MODE TEST</h2><div class="card">
+<button onclick="pay('essentiel_mensuel')">Essentiel 425F/mois - Activer</button>
+<button onclick="pay('pro_mensuel')">Pro 900F/mois - Activer</button>
+<button onclick="pay('premium_annuel')">Premium 14325F/an - Activer</button>
+<p id="s"></p></div>
 <script>
-function unlock(){
- localStorage.setItem('artisan_premium','premium_annuel');
- document.getElementById('statut').innerText='DÉBLOQUÉ - Premium Actif';
- alert('Tout débloqué!');
- location.reload();
-}
-function pay(plan,montant){
- openKkiapayWidget({amount:montant,key:'7edf7c80b3ee11f1b408a9e54ae3d6e2',sandbox:true,data:plan,theme:'#0d6efd',success:function(){localStorage.setItem('artisan_premium',plan);alert('Payé '+montant+'F');location.reload();}});
-}
-const p=localStorage.getItem('artisan_premium');
-if(p){document.getElementById('statut').innerText='Actif: '+p;}
-</script>
-</body>
-</html>
+function pay(p){localStorage.setItem('artisan_premium',p);document.getElementById('s').innerText='Plan actif: '+p+' (en attente Kkiapay)';alert('Activé en mode test! Accès fondateur/artisan débloqué');location.reload();}
+let cur=localStorage.getItem('artisan_premium');if(cur)document.getElementById('s').innerText='ACTIF: '+cur;
+</script></body></html>
