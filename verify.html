@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-6">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Code - ArtisanPro</title>
 <style>
@@ -16,7 +16,7 @@ button{width:100%;padding:15px;background:#ff7a00;color:white;border:none;border
 <div class="box">
 <h2>Entre ton code</h2>
 <p id="info">Code envoyé à ton email</p>
-<input id="code" placeholder="12345678" maxlength="8" type="text" inputmode="numeric">
+<input id="code" placeholder="123456" maxlength="6" type="text" inputmode="numeric">
 <button onclick="verifier()">Vérifier le code</button>
 <p id="msg"></p>
 <p style="margin-top:20px"><a href="index.html">Retour</a></p>
@@ -34,7 +34,7 @@ async function verifier(){
   const email = localStorage.getItem('email_a_verifier');
   const token = document.getElementById('code').value.trim();
   if(!email){ document.getElementById('msg').innerText = 'Va d abord sur inscription'; return; }
-  if(token.length < 6){ document.getElementById('msg').innerText = 'Entre le code complet (6 à 8 chiffres)'; return; }
+  if(token.length < 6){ document.getElementById('msg').innerText = 'Entre le code complet (4 à 6chiffres)'; return; }
   document.getElementById('msg').innerText = 'Vérification...';
   const { error } = await supabaseClient.auth.verifyOtp({ email, token, type: 'signup' });
   if(error){
