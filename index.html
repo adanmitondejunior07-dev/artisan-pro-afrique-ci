@@ -1,12 +1,45 @@
 <!DOCTYPE html>
-<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ArtisanPro</title>
-<style>body{font-family:Arial;background:#f2f2f2;padding:20px;text-align:center}.card{background:white;padding:20px;border-radius:15px}button{width:100%;padding:15px;margin:8px 0;border:none;border-radius:10px;font-weight:bold;color:white;background:#0d6efd}.green{background:#198754}</style></head>
-<body><h2>ArtisanPro CI - MODE TEST</h2><div class="card">
-<button onclick="pay('essentiel_mensuel')">Essentiel 425F/mois - Activer</button>
-<button onclick="pay('pro_mensuel')">Pro 900F/mois - Activer</button>
-<button onclick="pay('premium_annuel')">Premium 14325F/an - Activer</button>
-<p id="s"></p></div>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ArtisanPro CI - Inscription</title>
+<style>
+body{font-family:Arial;background:#f2f5f9;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0}
+.box{background:white;padding:30px;border-radius:12px;width:90%;max-width:400px;box-shadow:0 10px 30px rgba(0,0,0,.1)}
+input{width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px;box-sizing:border-box}
+button{width:100%;padding:14px;background:#ff7a00;color:white;border:none;border-radius:8px;font-weight:bold;margin-top:10px;cursor:pointer}
+#msg{margin-top:15px;text-align:center}
+</style>
+</head>
+<body>
+<div class="box">
+<h2>ArtisanPro CI</h2>
+<p>Crée ton compte artisan</p>
+<input id="email" type="email" placeholder="Ton email">
+<input id="password" type="password" placeholder="Mot de passe (6 car min)">
+<button onclick="inscrire()">Créer mon compte</button>
+<p id="msg"></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-function pay(p){localStorage.setItem('artisan_premium',p);document.getElementById('s').innerText='Plan actif: '+p+' (en attente Kkiapay)';alert('Activé en mode test! Accès fondateur/artisan débloqué');location.reload();}
-let cur=localStorage.getItem('artisan_premium');if(cur)document.getElementById('s').innerText='ACTIF: '+cur;
-</script></body></html>
+const supabaseClient = window.supabase.createClient(
+  'https://bdsllohfaslkkupwsvyi.supabase.co',
+  'SB_PUBLISHABLE_5zzIr7vTlZN16JtONMtQDa_EI7sAodo.'
+);
+async function inscrire(){
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  if(!email || !password){ document.getElementById('msg').innerText='Remplis email et mot de passe'; return; }
+  document.getElementById('msg').innerText = 'Envoi du code...';
+  localStorage.setItem('email_a_verifier', email);
+  const { error } = await supabaseClient.auth.signUp({ email, password });
+  if(error){
+    document.getElementById('msg').innerText = error.message;
+  } else {
+    window.location.href = 'verify.html';
+  }
+}
+</script>
+</body>
+</html>
