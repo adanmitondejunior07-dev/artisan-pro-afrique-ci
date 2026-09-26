@@ -3,23 +3,23 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ArtisanPro CI - Inscription</title>
+<title>Code - ArtisanPro</title>
 <style>
-body{font-family:Arial;background:#f2f5f9;display:flex;justify-content:center;align-items:center;min-height:100vh;margin:0}
-.box{background:white;padding:30px;border-radius:12px;width:90%;max-width:400px;box-shadow:0 10px 30px rgba(0,0,0,.1)}
-input{width:100%;padding:12px;margin:8px 0;border:1px solid #ddd;border-radius:8px;box-sizing:border-box}
-button{width:100%;padding:14px;background:#ff7a00;color:white;border:none;border-radius:8px;font-weight:bold;margin-top:10px;cursor:pointer}
-#msg{margin-top:15px;text-align:center}
+body{font-family:Arial;background:#f2f5f9;display:flex;justify-content:center;align-items:center;height:100vh;margin:0}
+.box{background:white;padding:30px;border-radius:12px;width:90%;max-width:400px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.1)}
+input{width:100%;padding:15px;font-size:32px;text-align:center;letter-spacing:12px;border:2px solid #ff7a00;border-radius:8px;margin:20px 0;box-sizing:border-box}
+button{width:100%;padding:15px;background:#ff7a00;color:white;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:16px}
+#msg{margin-top:15px;font-weight:bold}
 </style>
 </head>
 <body>
 <div class="box">
-<h2>ArtisanPro CI</h2>
-<p>Crée ton compte artisan</p>
-<input id="email" type="email" placeholder="Ton email">
-<input id="password" type="password" placeholder="Mot de passe (6 car min)">
-<button onclick="inscrire()">Créer mon compte</button>
+<h2>Entre ton code</h2>
+<p id="info">Code à 6 chiffres envoyé</p>
+<input id="code" placeholder="123456" maxlength="6" type="text" inputmode="numeric">
+<button onclick="verifier()">Vérifier le code</button>
 <p id="msg"></p>
+<p style="margin-top:20px"><a href="index.html">Retour</a></p>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -27,17 +27,22 @@ const supabaseClient = window.supabase.createClient(
   'https://bdsllohfaslkkupwsvyi.supabase.co',
   'SB_PUBLISHABLE_5zzIr7vTlZN16JtONMtQDa_EI7sAodo.'
 );
-async function inscrire(){
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  if(!email || !password){ document.getElementById('msg').innerText='Remplis email et mot de passe'; return; }
-  document.getElementById('msg').innerText = 'Envoi du code...';
-  localStorage.setItem('email_a_verifier', email);
-  const { error } = await supabaseClient.auth.signUp({ email, password });
+const savedEmail = localStorage.getItem('email_a_verifier');
+document.getElementById('info').innerText = savedEmail ? 'Code (6 chiffres) envoyé à: ' + savedEmail : 'Code à 6 chiffres envoyé';
+
+async function verifier(){
+  const email = localStorage.getItem('email_a_verifier');
+  const token = document.getElementById('code').value.trim();
+  if(!email){ document.getElementById('msg').innerText = 'Va d abord sur inscription'; return; }
+  if(token.length !== 6){ document.getElementById('msg').innerText = 'Le code doit faire 6 chiffres'; return; }
+  document.getElementById('msg').innerText = 'Vérification...';
+  const { error } = await supabaseClient.auth.verifyOtp({ email, token, type: 'signup' });
   if(error){
-    document.getElementById('msg').innerText = error.message;
+    document.getElementById('msg').innerText = 'Code faux: ' + error.message;
   } else {
-    window.location.href = 'verify.html';
+    document.getElementById('msg').style.color='green';
+    document.getElementById('msg').innerText = '✅ Compte vérifié !';
+    setTimeout(()=>{ window.location.href = 'success.html'; }, 1500);
   }
 }
 </script>
