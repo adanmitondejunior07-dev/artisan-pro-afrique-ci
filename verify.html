@@ -7,34 +7,40 @@
 <style>
 body{font-family:Arial;background:#f2f5f9;display:flex;justify-content:center;align-items:center;height:100vh;margin:0}
 .box{background:white;padding:30px;border-radius:12px;width:90%;max-width:400px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.1)}
-input{width:100%;padding:15px;font-size:24px;text-align:center;letter-spacing:10px;border:2px solid #ddd;border-radius:8px;margin:20px 0;box-sizing:border-box}
-button{width:100%;padding:15px;background:#ff7a00;color:white;border:none;border-radius:8px;font-weight:bold}
+input{width:100%;padding:15px;font-size:28px;text-align:center;letter-spacing:10px;border:2px solid #ff7a00;border-radius:8px;margin:20px 0;box-sizing:border-box}
+button{width:100%;padding:15px;background:#ff7a00;color:white;border:none;border-radius:8px;font-weight:bold;cursor:pointer;font-size:16px}
+#msg{margin-top:15px}
 </style>
 </head>
 <body>
 <div class="box">
 <h2>Entre ton code</h2>
 <p id="info">Code envoyé à ton email</p>
-<input id="code" placeholder="123456" maxlength="6">
-<button onclick="verifier()">Vérifier</button>
+<input id="code" placeholder="123456" maxlength="6" type="text" inputmode="numeric">
+<button onclick="verifier()">Vérifier le code</button>
 <p id="msg"></p>
+<p style="margin-top:20px"><a href="index.html">Retour</a></p>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-const supabase = window.supabase.createClient(
-  'https://TON_PROJET.supabase.co',
-  'TA_CLE_ANON_ICI'
+const supabaseClient = window.supabase.createClient(
+  'https://bdsllohfaslkkupwsvyi.supabase.co',
+  'SB_PUBLISHABLE_5zzIr7vTlZN16JtONMtQDa_EI7sAodo.'
 );
-document.getElementById('info').innerText = 'Code envoyé à: ' + (localStorage.getItem('email_a_verifier')||'ton email');
+const savedEmail = localStorage.getItem('email_a_verifier');
+document.getElementById('info').innerText = savedEmail ? 'Code envoyé à: ' + savedEmail : 'Code envoyé à ton email';
+
 async function verifier(){
   const email = localStorage.getItem('email_a_verifier');
-  const token = document.getElementById('code').value;
+  const token = document.getElementById('code').value.trim();
+  if(!email){ document.getElementById('msg').innerText = 'Va d abord sur inscription'; return; }
+  if(token.length !== 6){ document.getElementById('msg').innerText = 'Le code fait 6 chiffres'; return; }
   document.getElementById('msg').innerText = 'Vérification...';
-  const { data, error } = await supabase.auth.verifyOtp({ email, token, type: 'signup' });
+  const { error } = await supabaseClient.auth.verifyOtp({ email, token, type: 'signup' });
   if(error){
     document.getElementById('msg').innerText = 'Code faux: ' + error.message;
   } else {
-    document.getElementById('msg').innerText = '✅ Compte vérifié !';
+    document.getElementById('msg').innerText = '✅ Compte vérifié ! Redirection...';
     setTimeout(()=>{ window.location.href = 'success.html'; }, 1500);
   }
 }
