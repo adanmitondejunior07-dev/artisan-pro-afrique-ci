@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Code - ArtisanPro</title>
+<style>
+body{font-family:Arial;background:#f2f5f9;display:flex;justify-content:center;align-items:center;height:100vh;margin:0}
+.box{background:white;padding:30px;border-radius:12px;width:90%;max-width:400px;text-align:center;box-shadow:0 10px 30px rgba(0,0,0,.1)}
+input{width:100%;padding:15px;font-size:24px;text-align:center;letter-spacing:10px;border:2px solid #ddd;border-radius:8px;margin:20px 0;box-sizing:border-box}
+button{width:100%;padding:15px;background:#ff7a00;color:white;border:none;border-radius:8px;font-weight:bold}
+</style>
+</head>
+<body>
+<div class="box">
+<h2>Entre ton code</h2>
+<p id="info">Code envoyé à ton email</p>
+<input id="code" placeholder="123456" maxlength="6">
+<button onclick="verifier()">Vérifier</button>
+<p id="msg"></p>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const supabase = window.supabase.createClient(
+  'https://TON_PROJET.supabase.co',
+  'TA_CLE_ANON_ICI'
+);
+document.getElementById('info').innerText = 'Code envoyé à: ' + (localStorage.getItem('email_a_verifier')||'ton email');
+async function verifier(){
+  const email = localStorage.getItem('email_a_verifier');
+  const token = document.getElementById('code').value;
+  document.getElementById('msg').innerText = 'Vérification...';
+  const { data, error } = await supabase.auth.verifyOtp({ email, token, type: 'signup' });
+  if(error){
+    document.getElementById('msg').innerText = 'Code faux: ' + error.message;
+  } else {
+    document.getElementById('msg').innerText = '✅ Compte vérifié !';
+    setTimeout(()=>{ window.location.href = 'success.html'; }, 1500);
+  }
+}
+</script>
+</body>
+</html>
